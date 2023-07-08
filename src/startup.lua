@@ -1,1 +1,1 @@
-commands.exec("/rom/MeteorOS/system.lua")
+commands.exec("/MeteorOS/system.lua")
