@@ -120,6 +120,33 @@ local function checkDevicesInRange()
     end
 end
 
+local function drawTaskbar()
+    term.setBackgroundColor(colors.black)
+    term.setTextColor(colors.white)
+    term.setCursorPos(1, 1)
+    term.clearLine()
+    term.write("[Start]")
+    term.setCursorPos(2, 1)
+    term.write("Taskbar")
+end
+
+local function drawDesktop()
+    term.setBackgroundColor(colors.lightGray)
+    term.clear()
+    drawTaskbar()
+end
+
+local function startGUI()
+    while true do
+        drawDesktop()
+        local event, button, x, y = os.pullEvent("mouse_click")
+        if button == 1 and y == 1 then
+            print("Start menu clicked!")
+            -- Add your start menu functionality here
+        end
+    end
+end
+
 local function parseCommand(input)
     local command, param1, param2 = string.match(input, "(%S+)%s*(%S*)%s*(%S*)")
     return command, param1, param2
@@ -150,6 +177,8 @@ local function executeCommand(command, param1, param2)
         sendDirectory(param1, param2)
     elseif command == "devices" then
         checkDevicesInRange()
+    elseif command == "gui" then
+        startGUI()
     else
         print("Invalid command!")
     end
