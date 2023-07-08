@@ -1,6 +1,6 @@
 local currentDir = "/"
 local modem = peripheral.find("modem")
-local mkernel = os.loadAPI("/rom/MeteorOS/Modules/meteorkernel.lua")
+local mkernel = os.loadAPI("/MeteorOS/Modules/meteorkernel.lua")
 
 local function list(dir)
     if fs.exists(dir) then
