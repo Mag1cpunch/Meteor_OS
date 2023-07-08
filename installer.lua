@@ -8,7 +8,23 @@ local githubURL = "https://raw.githubusercontent.com/Mag1cpunch/Meteor_OS/main"
 local filesToDownload = {
     {
         path = "/rom/MeteorOS/modules/system.lua"
-        url = githubURL .. "/system.lua"
+        url = githubURL .. "/modules/system.lua"
+    }
+    {
+        path = "/rom/MeteorOS/modules/bootloader.lua"
+        url = githubURL .. "/modules/bootloader.lua"
+    }
+    {
+        path = "/rom/MeteorOS/modules/gui.lua"
+        url = githubURL .. "/modules/gui.lua"
+    }
+    {
+        path = "/rom/MeteorOS/modules/meteorkernel.lua"
+        url = githubURL .. "/modules/meteorkernel.lua"
+    }
+    {
+        path = "/rom/startup.lua"
+        url = githubURL .. "/scr/startup.lua"
     }
 }
 
@@ -36,8 +52,24 @@ local function installFiles()
         end
     end
 end
-installFiles()
-print("Installation complete!")
-os.sleep(1)
-print("Rebooting in 3 seconds...")
-os.reboot()
+local function init()
+    if fs.exists("/rom/startup.lua") then
+        print("Formatting...")
+        os.sleep(2)
+        fs.delete("/rom/startup.lua")
+        print("Successfully Formated!")
+        os.sleep(2)
+        installFiles()
+        print("Installation complete!")
+        os.sleep(1)
+        print("Rebooting in 3 seconds...")
+        os.reboot()
+    else
+        installFiles()
+        print("Installation complete!")
+        os.sleep(1)
+        print("Rebooting in 3 seconds...")
+        os.reboot()
+    end
+end
+init()

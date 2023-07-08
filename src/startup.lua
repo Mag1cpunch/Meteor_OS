@@ -1,0 +1,1 @@
+commands.exec("/rom/MeteorOS/system.lua")
