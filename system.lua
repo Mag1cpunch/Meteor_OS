@@ -130,6 +130,7 @@ local function executeCommand(command, param1, param2)
         sendDirectory(param1, param2)
     else
         print("Invalid command!")
+        return -- Add this line
     end
 end
 
