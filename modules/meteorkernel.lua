@@ -81,10 +81,10 @@ function clear()
     term.clear()
 end
 function lclear()
-    term.clearLine
+    term.clearLine()
 end
 function getmousepos(debugisenabled)
-    local mousepos = term.getCursorPos
+    local mousepos = term.getCursorPos()
     if debugisenabled == true then
         print(mousepos)
         return mousepos
@@ -108,7 +108,7 @@ function iscolor(debugisenabled)
     end
 end
 function getres(debugisenabled)
-    local res = term.getSize
+    local res = term.getSize()
     if debugisenabled == true
         print(res)
         return res
@@ -127,7 +127,7 @@ function current()
     return current
 end
 function native()
-    local native = term.native
+    local native = term.native()
     return native
 end
 function settextcolor(color)
