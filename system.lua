@@ -1,6 +1,7 @@
 local currentDir = "/"
 local modem = peripheral.find("modem")
 local http = require("http")
+print("Welcome to MeteorOS")
 
 local function list(dir)
     if fs.exists(dir) then
