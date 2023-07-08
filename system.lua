@@ -101,9 +101,18 @@ local function sendDirectory(source, destination)
 end
 
 local function parseCommand(input)
-    local command, param1, param2 = string.match(input, "(%S+)%s*(%S*)%s*(%S*)")
-    return command, param1, param2
+    local parts = {}
+    for part in string.gmatch(input, "%S+") do
+        table.insert(parts, part)
+    end
+
+    if #parts >= 1 then
+        return parts[1], parts[2], parts[3]
+    else
+        return nil, nil, nil
+    end
 end
+
 
 local function executeCommand(command, param1, param2)
     if command == "list" then
