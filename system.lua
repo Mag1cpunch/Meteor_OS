@@ -100,19 +100,30 @@ local function sendDirectory(source, destination)
     traverse(source)
 end
 
-local function parseCommand(input)
-    local parts = {}
-    for part in string.gmatch(input, "%S+") do
-        table.insert(parts, part)
+local function checkDevicesInRange()
+    local devices = peripheral.getNames()
+    local modems = {}
+
+    for _, device in ipairs(devices) do
+        if peripheral.getType(device) == "modem" then
+            table.insert(modems, device)
+        end
     end
 
-    if #parts >= 1 then
-        return parts[1], parts[2], parts[3]
+    if #modems > 0 then
+        print("Devices with wireless modems in range:")
+        for _, device in ipairs(modems) do
+            print(device)
+        end
     else
-        return nil, nil, nil
+        print("No devices with wireless modems in range.")
     end
 end
 
+local function parseCommand(input)
+    local command, param1, param2 = string.match(input, "(%S+)%s*(%S*)%s*(%S*)")
+    return command, param1, param2
+end
 
 local function executeCommand(command, param1, param2)
     if command == "list" then
@@ -137,9 +148,10 @@ local function executeCommand(command, param1, param2)
         sendFile(param1, param2)
     elseif command == "senddir" then
         sendDirectory(param1, param2)
+    elseif command == "list network" then
+        checkDevicesInRange()
     else
         print("Invalid command!")
-        return -- Add this line
     end
 end
 
