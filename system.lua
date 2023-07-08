@@ -1,5 +1,6 @@
 local currentDir = "/"
 local modem = peripheral.find("modem")
+local http = require("http")
 
 local function list(dir)
     if fs.exists(dir) then
@@ -120,6 +121,25 @@ local function checkDevicesInRange()
     end
 end
 
+local function autoupdate(url, destination)
+    local response = http.get(url)
+    if response then
+        local fileContent = response.readAll()
+        response.close()
+
+        local file = fs.open(destination, "w")
+        file.write(fileContent)
+        file.close()
+
+        print("File updated from '" .. url .. "' to '" .. destination .. "'")
+    else
+        print("Failed to download file from '" .. url .. "'")
+    end
+end
+local dest = "system.lua"
+local address = "https://raw.githubusercontent.com/Mag1cpunch/Meteor_OS/main/system.lua"
+autoupdate(address, dest)
+
 local function parseCommand(input)
     local command, param1, param2 = string.match(input, "(%S+)%s*(%S*)%s*(%S*)")
     return command, param1, param2
@@ -148,8 +168,10 @@ local function executeCommand(command, param1, param2)
         sendFile(param1, param2)
     elseif command == "senddir" then
         sendDirectory(param1, param2)
-    elseif command == "list network" then
+    elseif command == "devices" then
         checkDevicesInRange()
+    elseif command == "autoupdate" then
+        autoupdate(param1, param2)
     else
         print("Invalid command!")
     end
