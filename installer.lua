@@ -9,23 +9,23 @@ local filesToDownload = {
     {
         path = "/rom/MeteorOS/modules/system.lua"
         url = githubURL .. "/modules/system.lua"
-    }
+    },
     {
         path = "/rom/MeteorOS/modules/bootloader.lua"
         url = githubURL .. "/modules/bootloader.lua"
-    }
+    },
     {
         path = "/rom/MeteorOS/modules/gui.lua"
         url = githubURL .. "/modules/gui.lua"
-    }
+    },
     {
         path = "/rom/MeteorOS/modules/meteorkernel.lua"
         url = githubURL .. "/modules/meteorkernel.lua"
-    }
+    },
     {
         path = "/rom/startup.lua"
         url = githubURL .. "/scr/startup.lua"
-    }
+    },
 }
 
 function downloadFile(url, path)
