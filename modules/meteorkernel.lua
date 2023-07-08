@@ -2,9 +2,6 @@
 function wait(time)
     os.sleep(time)
 end
-function require(path)
-    os.loadAPI(path)
-end
 function version()
     print("Current Firmware version is: "..os.version().."")
 end
