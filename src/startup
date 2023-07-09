@@ -1,1 +1,2 @@
-shell.run("/MeteorOS/system")
+print("Initializing MeteorOS")
+shell.run("/MeteorOS/modules/bootloader.lua")
