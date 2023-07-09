@@ -23,8 +23,8 @@ local filesToDownload = {
         url = githubURL .. "/modules/meteorkernel.lua"
     },
     {
-        path = "/rom/startup.lua",
-        url = githubURL .. "/scr/startup.lua"
+        path = "/rom/startup",
+        url = githubURL .. "/scr/startup"
     },
 }
 
