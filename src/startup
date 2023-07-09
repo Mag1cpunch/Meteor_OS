@@ -1,1 +1,1 @@
-commands.exec(true, "/MeteorOS/system")
+shell.run("/MeteorOS/system")
