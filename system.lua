@@ -141,6 +141,23 @@ local function showHelp()
     print("list - Will list directories and files in the current selected path")
 end
 
+function uninstallos()
+    print("Uninstalling OS...")
+    os.sleep(2)
+    fs.delete(/MeteorOS/modules/gui.lua)
+    fs.delete(/MeteorOS/modules/meteorkernel.lua)
+    fs.delete(/MeteorOS/modules/bootloader.lua)
+    fs.delete(/MeteorOS/modules/system.lua)
+    fs.delete(/MeteorOS/modules)
+    fs.delete(/MeteorOS)
+    fs.delete(/startup)
+    print("Successfully uninstalled OS!")
+    os.sleep(1)
+    print("Rebooting in 5 seconds...")
+    os.sleep(5)
+    os.reboot()
+end
+
 local githubURL = "https://raw.githubusercontent.com/Mag1cpunch/Meteor_OS/main"
 local filesToDownload = {
     {
@@ -295,6 +312,8 @@ local function executeCommand(command, param1, param2)
         startGUI()
     elseif command == "updateos" then
         initinstall()
+    elseif command == "uninstallos" then
+        uninstallos()
     else
         print("Invalid command!")
     end
