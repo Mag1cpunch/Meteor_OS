@@ -1,17 +1,3 @@
-local fstree = {
-    "/MeteorOS",
-    "/MeteorOS/modules",
-    "/MeteorOS/boot",
-    "/MeteorOS/etc",
-    "/MeteorOS/usr",
-    "/MeteorOS/sbin",
-    "/MeteorOS/var",
-    "/MeteorOS/tmp",
-    "/MeteorOS/dev",
-    "/MeteorOS/dev/block",
-    "/MeteorOS/dev/sda1"
-}
-
 -- File System
 function initfs()
     print("Verifying EXT3 FileSystem...")
@@ -52,13 +38,7 @@ function initfs()
     print("[ OK ] EXT3 FileSystem Initialized!")
 end
 
-function cli()
-    term.clear()
-    term.setBackgroundColor(40)
-    term.setTextColor(colors.orange)
-    term.write("----------------------------------------------------------------\n")
-    term.write("|Welcome to MeteorOS by Meteor! Say 'help' for list of commands|\n")
-    term.write("----------------------------------------------------------------\n")
+function shell()
     shell.run("/MeteorOS/bin/shell.lua")
 end
 
@@ -75,7 +55,7 @@ end
 function kernel()
     initfs()
     meteorNet()
-    cli()
+    shell()
 end
 
 kernel()
