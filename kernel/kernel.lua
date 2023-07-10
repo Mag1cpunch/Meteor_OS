@@ -63,12 +63,6 @@ function cli()
 end
 
 function meteorNet()
-    rednet.open("back")
-    rednet.open("front")
-    rednet.open("left")
-    rednet.open("right")
-    rednet.open("top")
-    rednet.open("bottom")
     rednet.host("1", "MeteorDevice" .. math.random(1000, 9999))
 end
 
