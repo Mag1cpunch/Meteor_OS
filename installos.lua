@@ -4,6 +4,12 @@ end
 if not fs.exists("/MeteorOS/modules") then
     fs.makeDir("/MeteorOS/modules")
 end
+if not fs.exists("/MeteorOS/kernel") then
+    fs.makeDir("/MeteorOS/kernel")
+end
+if not fs.exists("/MeteorOS/bin") then
+    fs.makeDir("/MeteorOS/bin")
+end
 local githubURL = "https://raw.githubusercontent.com/Mag1cpunch/Meteor_OS/main"
 local filesToDownload = {
     {
@@ -19,8 +25,16 @@ local filesToDownload = {
         url = githubURL .. "/modules/gui.lua"
     },
     {
-        path = "/MeteorOS/modules/meteorkernel.lua",
-        url = githubURL .. "/modules/meteorkernel.lua"
+        path = "/MeteorOS/modules/meteorapi.lua",
+        url = githubURL .. "/modules/meteorapi.lua"
+    },
+    {
+        path = "/MeteorOS/kernel/kernel.lua",
+        url = githubURL .. "/kernel/kernel.lua"
+    },
+    {
+        path = "/MeteorOS/bin/shell.lua",
+        url = githubURL .. "/bin/shell.lua"
     },
     {
         path = "/startup",

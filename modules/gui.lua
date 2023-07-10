@@ -6,5 +6,6 @@ function ui.setupgui()
     term.setTextColor(255, 255, 255)
     term.setCursorBlink(true)
 end
+ui.setupgui()
 
 return ui
