@@ -1,4 +1,3 @@
-local mkernel = {}
 local mapi = os.loadAPI("/MeteorOS/modules/meteorapi.lua")
 local fstree = {
     "/MeteorOS",
@@ -14,35 +13,16 @@ local fstree = {
     "/MeteorOS/dev/sda1"
 }
 
-local rootDevice = {
-    type = "virtual",
-    path = "/",
-    children = {
-        dev = {
-            type = "virtual",
-            path = "/dev",
-            children = {
-                mcblk0p1 = {
-                    type = "disk",
-                    path = "/dev/mcblk0p1",
-                },
-                mcblk0p2 = {
-                    type = "disk",
-                    path = "/dev/mcblk0p2",
-                },
-            },
-        },
-    },
-}
-
 -- File System
 function initfs()
+    print("Verifying EXT3 FileSystem...")
+    os.sleep(3)
     if not fs.exists(fstree) then
+        print("EXT3 FileSystem tree not found generating new...")
+        os.sleep(3)
         mapi.makedirs(fstree)
     end
-    fs.mount(rootDevice, "/")
-    fs.mount(rootDevice.children.dev.mcblk0p2, "/var")
-    shell.run("/MeteorOS/bin/shell.lua")
+    print("[ OK ] EXT3 FileSystem Initialized!")
 end
 
 function cli()
@@ -52,32 +32,7 @@ function cli()
     term.write("----------------------------------------------------------------\n")
     term.write("|Welcome to MeteorOS by Meteor! Say 'help' for list of commands|\n")
     term.write("----------------------------------------------------------------\n")
-end
-
-function mkernel.drawBox(startX, startY, endX, endY, color)
-    term.setBackgroundColor(color)
-    term.clear()
-end
-
-function mkernel.drawButton(text, x, y, width)
-    local height = 3
-    local padding = 2
-    local textX = x + math.floor((width - #text) / 2)
-    local textY = y + math.floor((height - 1) / 2)
-
-    term.setCursorPos(x, y)
-    term.setBackgroundColor(colors.lightGray)
-    term.setTextColor(colors.white)
-    term.clearLine()
-
-    term.setCursorPos(x, y + 1)
-    term.write(string.rep(" ", width))
-
-    term.setCursorPos(x, y + height)
-    term.clearLine()
-
-    term.setCursorPos(textX, textY)
-    term.write(text)
+    shell.run("/MeteorOS/bin/shell.lua")
 end
 
 function meteorNet()
@@ -92,9 +47,8 @@ end
 
 function kernel()
     initfs()
-    cli()
     meteorNet()
+    cli()
 end
 
 kernel()
-return mkernel
