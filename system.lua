@@ -1,6 +1,10 @@
 local currentDir = "/"
 local modem = peripheral.find("modem")
 
+print("---------------------------------")
+print("[[Welcome to MeteorOS by Meteor!]]")
+print("---------------------------------")
+
 local function list(dir)
     if fs.exists(dir) then
         local files = fs.list(dir)
@@ -120,6 +124,131 @@ local function checkDevicesInRange()
     end
 end
 
+local function showHelp()
+    print("Available Commands:")
+    print("help - Show available commands.")
+    print("updateos - Update the operating system.")
+    print("reboot - Reboot the operating system.")
+    print("shutdown - Shutdown the operating system.")
+    print("goto - Will go to specified folder.")
+    print("diskspace - Will show diskspace.")
+    print("createdir - Will create a dir with a specified name.")
+    print("removedir - Will delete dir with a specified name")
+    print("sendfile - Will send a specified file to specified device")
+    print("senddir - Will send a specified dir to specified device")
+    print("devices - Will show available devices in range(Requires Wireless Modem or Ender Modem)")
+    print("gui - Will start the system gui(Not working)")
+    print("list - Will list directories and files in the current selected path")
+end
+
+function uninstallos()
+    print("Uninstalling OS...")
+    os.sleep(2)
+    fs.delete(/MeteorOS/modules/gui.lua)
+    fs.delete(/MeteorOS/modules/meteorkernel.lua)
+    fs.delete(/MeteorOS/modules/bootloader.lua)
+    fs.delete(/MeteorOS/modules/system.lua)
+    fs.delete(/MeteorOS/modules)
+    fs.delete(/MeteorOS)
+    fs.delete(/startup)
+    print("Successfully uninstalled OS!")
+    os.sleep(1)
+    print("Rebooting in 5 seconds...")
+    os.sleep(5)
+    os.reboot()
+end
+
+local githubURL = "https://raw.githubusercontent.com/Mag1cpunch/Meteor_OS/main"
+local filesToDownload = {
+    {
+        path = "/rom/MeteorOS/modules/system.lua",
+        url = githubURL .. "/modules/system.lua"
+    },
+    {
+        path = "/rom/MeteorOS/modules/bootloader.lua",
+        url = githubURL .. "/modules/bootloader.lua"
+    },
+    {
+        path = "/rom/MeteorOS/modules/gui.lua",
+        url = githubURL .. "/modules/gui.lua"
+    },
+    {
+        path = "/rom/MeteorOS/modules/meteorkernel.lua",
+        url = githubURL .. "/modules/meteorkernel.lua"
+    },
+    {
+        path = "/rom/startup",
+        url = githubURL .. "/scr/startup"
+    },
+}
+
+function downloadFile(url, path)
+    local response = http.get(url)
+    if response then
+        local file = fs.open(path, "w")
+        file.write(response.readAll())
+        file.close()
+        response.close()
+        return true
+    else
+        print("Failed to download file: " .. path)
+        return false
+    end
+end
+
+local function installFiles()
+    for _, file in ipairs(filesToDownload) do
+        print("Downloading file: " .. file.path)
+        local success = downloadFile(file.url, file.path)
+        if success then
+            print("File installed: " .. file.path)
+        else
+            print("Failed to install file: " .. file.path)
+        end
+    end
+end
+
+local function initinstall()
+    if fs.exists("/rom/startup.lua") then
+        print("Formatting...")
+        os.sleep(2)
+        fs.delete("/rom/startup.lua")
+        print("Successfully Formated!")
+        os.sleep(2)
+        print("Creating directories...")
+        os.sleep(2)
+        if not fs.exists("/MeteorOS") then
+            fs.makeDir("/rom/MeteorOS")
+        end
+        if not fs.exists("/MeteorOS/modules") then
+            fs.makeDir("/MeteorOS/modules")
+        end
+        os.sleep(2)
+        print("Updating System...")
+        installFiles()
+        print("Installation complete!")
+        os.sleep(1)
+        print("Rebooting in 3 seconds...")
+        os.reboot()
+    else
+        print("Creating directories...")
+        os.sleep(2)
+        if not fs.exists("/MeteorOS") then
+            fs.makeDir("/rom/MeteorOS")
+        end
+        if not fs.exists("/MeteorOS/modules") then
+            fs.makeDir("/MeteorOS/modules")
+        end
+        print("Installing system...")
+        os.sleep(2)
+        installFiles()
+        print("Installation complete!")
+        os.sleep(1)
+        print("Rebooting in 3 seconds...")
+        os.reboot()
+    end
+end
+
 local function drawTaskbar()
     term.setBackgroundColor(colors.black)
     term.setTextColor(colors.white)
@@ -177,8 +306,14 @@ local function executeCommand(command, param1, param2)
         sendDirectory(param1, param2)
     elseif command == "devices" then
         checkDevicesInRange()
+    elseif command == "help" then
+        showHelp()
     elseif command == "gui" then
         startGUI()
+    elseif command == "updateos" then
+        initinstall()
+    elseif command == "uninstallos" then
+        uninstallos()
     else
         print("Invalid command!")
     end
