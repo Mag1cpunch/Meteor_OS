@@ -1,6 +1,7 @@
 local currentDir = "/"
 local modem = peripheral.find("modem")
-local mkernel = os.loadAPI("/rom/MeteorOS/Modules/meteorkernel.lua")
+local mapi = os.loadAPI("/MeteorOS/modules/meteorapi.lua")
+local ui = os.loadAPI("/MeteorOS/modules/gui.lua")
 
 local function list(dir)
     if fs.exists(dir) then
@@ -178,6 +179,8 @@ local function executeCommand(command, param1, param2)
         sendDirectory(param1, param2)
     elseif command == "devices" then
         checkDevicesInRange()
+    elseif command == "gui" then
+        ui.setupgui()
     elseif command == "gui" then
         startGUI()
     else
