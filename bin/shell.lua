@@ -21,8 +21,6 @@ end
 
 local function welcome()
     term.clear()
-    term.setBackgroundColor(40)
-    term.setTextColor(colors.orange)
     term.write("----------------------------------------------------------------\n")
     term.write("|Welcome to MeteorOS by Meteor! Say 'help' for list of commands|\n")
     term.write("----------------------------------------------------------------\n")
