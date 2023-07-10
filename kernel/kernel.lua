@@ -16,10 +16,12 @@ local fstree = {
 function initfs()
     print("Verifying EXT3 FileSystem...")
     os.sleep(3)
-    if not fs.exists(fstree) then
-        print("EXT3 FileSystem tree not found generating new...")
-        os.sleep(3)
-        mapi.makedirs(fstree)
+    for _, dirs in pairs(fstree) do
+        if not fs.exists(dirs) then
+            print("EXT3 FileSystem tree not found generating new...")
+            os.sleep(3)
+            fs.makeDir(dirs)
+        end
     end
     print("[ OK ] EXT3 FileSystem Initialized!")
 end
