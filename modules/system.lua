@@ -2,26 +2,28 @@ local currentDir = "/"
 local modem = peripheral.find("modem")
 local mkernel = os.loadAPI("/MeteorOS/Modules/meteorkernel.lua")
 
-local function list(dir)
-    if fs.exists(dir) then
-        local files = fs.list(dir)
-        for _, file in pairs(files) do
-            print(file)
-        end
-    else
-        print("Directory '" .. dir .. "' doesn't exist!")
+local function list()
+    local files = fs.list(currentDir)
+    for file in files do
+        print(file)
     end
 end
 
 local function gotoDirectory(dir)
-    if dir == "" then
-        dir = currentDir
-    end
-
-    if fs.isDir(dir) then
-        currentDir = fs.combine(currentDir, dir)
+    if dir == ".." then
+        -- Go up one level
+        currentDir = fs.path(currentDir)
+    elseif dir == "/" then
+        -- Go to the root directory
+        currentDir = "/"
     else
-        print("'" .. dir .. "' is not a valid directory!")
+        -- Check if the directory exists
+        local path = fs.concat(currentDir, dir)
+        if fs.isDirectory(path) then
+            currentDir = path
+        else
+            print("Directory '" .. dir .. "' does not exist!")
+        end
     end
 end
 
