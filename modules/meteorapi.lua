@@ -99,7 +99,7 @@ function mapi.clear()
     term.clear()
 end
 function mapi.lclear()
-    term.clearLine
+    term.clearLine()
 end
 function mapi.getmousepos(debugisenabled)
     local mousepos = term.getCursorPos

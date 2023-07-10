@@ -1,6 +1,5 @@
 local currentDir = "/MeteorOS"
 local modem = peripheral.find("modem")
-local mapi = os.loadAPI("/MeteorOS/modules/meteorapi.lua")
 local ui = os.loadAPI("/MeteorOS/modules/gui.lua")
 
 function errorHandler(err)
