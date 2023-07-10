@@ -1,3 +1,8 @@
+local function clearScreen()
+  term.clear()
+  term.setCursorPos(1, 1)
+end
+
 local function drawButton(text, x, y, width)
   local height = 3
   local padding = 2
