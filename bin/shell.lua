@@ -1,6 +1,5 @@
 local currentDir = "/MeteorOS"
 local modem = peripheral.find("modem")
-local ui = os.loadAPI("/MeteorOS/modules/gui.lua")
 
 function errorHandler(err)
     -- Log the error or perform any necessary actions
@@ -198,8 +197,6 @@ local function executeCommand(command, param1, param2)
         safeCall(sendDirectory, param1, param2)
     elseif command == "devices" then
         safeCall(checkDevicesInRange)
-    elseif command == "gui" then
-        safeCall(ui.setupgui)
     elseif command == "gui" then
         safeCall(startGUI)
     else
