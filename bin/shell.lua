@@ -19,6 +19,14 @@ function safeCall(func, ...)
     return result
 end
 
+local function welcome()
+    term.clear()
+    term.write("----------------------------------------------------------------\n")
+    term.write("|Welcome to MeteorOS by Meteor! Say 'help' for list of commands|\n")
+    term.write("----------------------------------------------------------------\n")
+end
+welcome()
+
 local function list()
     local files = fs.list(currentDir)
     for file in files do
