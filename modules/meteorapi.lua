@@ -102,7 +102,7 @@ function mapi.lclear()
     term.clearLine()
 end
 function mapi.getmousepos(debugisenabled)
-    local mousepos = term.getCursorPos
+    local mousepos = term.getCursorPos()
     if debugisenabled == true then
         print(mousepos)
         return mousepos
@@ -145,7 +145,7 @@ function mapi.current()
     return current
 end
 function mapi.native()
-    local native = term.native
+    local native = term.native()
     return native
 end
 function mapi.settextcolor(color)

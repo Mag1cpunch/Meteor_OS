@@ -1,4 +1,3 @@
-local mapi = os.loadAPI("/MeteorOS/modules/meteorapi.lua")
 local fstree = {
     "/MeteorOS",
     "/MeteorOS/modules",
